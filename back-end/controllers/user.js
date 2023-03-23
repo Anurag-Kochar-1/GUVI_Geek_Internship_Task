@@ -33,3 +33,12 @@ exports.updateUser = async (req, res) => {
     return res.status(401).send({ error });
   }
 };
+
+exports.getUsers = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (error) {
+    return res.status(401).send({ error });
+  }
+};

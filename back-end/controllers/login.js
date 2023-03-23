@@ -22,7 +22,7 @@ exports.loginController = async (req, res) => {
             userID: user._id,
             email: user.email,
           },
-          "secret",
+          process.env.JWT_SECRET,
           { expiresIn: "24h" }
         );
 
