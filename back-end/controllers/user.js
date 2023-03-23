@@ -13,3 +13,23 @@ exports.getUser = async (req, res) => {
     return res.status(404).send({ error: "Cannot Find User Data" });
   }
 };
+
+exports.updateUser = async (req, res) => {
+  try {
+    const { userID } = req.params;
+
+    if (userID) {
+      const body = req.body;
+      const newUser = await User.updateOne({ _id: userID }, body);
+      if (!newUser) {
+        return res.status(401).send({ message: "Record Not Updated!" });
+      } else {
+        return res.status(201).send({ message: "Record Updated!" });
+      }
+    } else {
+      return res.status(401).send({ error: "User Not Found...!" });
+    }
+  } catch (error) {
+    return res.status(401).send({ error });
+  }
+};
