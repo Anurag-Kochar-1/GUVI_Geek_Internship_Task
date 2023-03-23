@@ -1,3 +1,4 @@
+import Button from "../../components/Button/Button";
 import TextField from "../../components/TextField/TextField";
 
 const SignUpPage = () => {
@@ -15,6 +16,8 @@ const SignUpPage = () => {
           label="Email"
           name="Email"
         />
+
+        <Button variant="a" size="">  Check </Button>
       </section>
     </main>
   );
