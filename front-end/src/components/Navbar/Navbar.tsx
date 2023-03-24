@@ -1,11 +1,8 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 const Navbar = () => {
-  if (
-    window?.location?.pathname === "/signup" ||
-    window?.location?.pathname === "/login"
-  )
+  const location = useLocation();
+  if (location.pathname === "/signup" || location.pathname === "/login")
     return null;
 
   return (
@@ -14,7 +11,15 @@ const Navbar = () => {
         <span className="w-10 h-10 rounded-full bg-black"></span>
         <h1 className="font-medium text-lg text-black">Anurag Kochar </h1>
       </Link>
-      <Link to={`profile`} className="font-medium text-lg text-black cursor-pointer"> Profile </Link>
+      <Link
+        to={`profile`}
+        className="font-medium text-lg text-black cursor-pointer"
+      >
+        {" "}
+        Profile{" "}
+      </Link>
+
+      <button onClick={() => console.log(location)}>location</button>
 
       <div className="absolute w-full h-2  bg-gradient-to-r from-indigo-500 to-fuchsia-300 bottom-0 left-0 right-0"></div>
     </nav>
