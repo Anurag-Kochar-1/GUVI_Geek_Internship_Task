@@ -45,20 +45,21 @@ const LogInPage = () => {
         icon: "✅",
       });
 
+      localStorage.setItem("token", res?.data?.token);
+
       navigate("/");
     }
   };
 
   return (
     <main className="w-full h-screen bg-light flex flex-col lg:flex-row justify-center items-center">
-    
       <section className="hidden lg:inline-block w-[50%] xl:w-[60%] 2xl:w-[65%] h-screen bg-gradient-to-r from-indigo-500 to-fuchsia-300"></section>
 
       <section className="w-[90%] lg:w-[50%] xl:w-[40%] 2xl:w-[35%] bg-light flex flex-col justify-center items-center lg:px-10">
         <div className="w-full flex flex-col items-start justify-start space-y-2 my-4">
           <h2 className="text-4xl font-semibold">Hey there 👋</h2>
           <p className="text-base font-light text-gray-600">
-            Enter your account details to get started!@=
+            Enter your account details to get started!
           </p>
         </div>
 

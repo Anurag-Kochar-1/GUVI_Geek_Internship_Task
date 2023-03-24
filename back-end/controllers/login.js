@@ -29,6 +29,13 @@ exports.loginController = async (req, res) => {
         return res.status(200).send({
           message: "Login Successfull",
           username: user.username,
+          email: user.email,
+          _id: user._id,
+          age: user.age,
+          gender: user.age,
+          dob: user.age,
+          mobile: user.mobile,
+          profilePicture: user.profilePicture,
           token,
         });
       })
