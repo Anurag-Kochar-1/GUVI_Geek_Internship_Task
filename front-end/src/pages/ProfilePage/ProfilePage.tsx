@@ -37,8 +37,23 @@ const ProfilePage = () => {
     console.log(res);
   };
 
+  const getUser = async () => {
+    const user = await axios.get(
+      `https://anurag-guvi-api.onrender.com/api/user/${userDetails?.username}`
+    );
+    console.log(user);
+
+    if (user.status === 200) {
+      setMobileNumber(user.data.mobile);
+      setAge(user.data.age);
+      setSelectedGender(user.data.gender);
+    }
+  };
+
   useEffect(() => {
     if (!userDetails?._id) return navigate("/login");
+
+    getUser();
   }, []);
 
   return (
