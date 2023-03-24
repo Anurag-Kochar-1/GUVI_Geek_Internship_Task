@@ -3,7 +3,7 @@ import React from "react";
 interface IAppFormProps {
   children: React.ReactNode;
   onSubmit: any;
-  className: string
+  className: string;
 }
 
 const AppForm = ({ children, onSubmit, className }: IAppFormProps) => {
@@ -13,7 +13,7 @@ const AppForm = ({ children, onSubmit, className }: IAppFormProps) => {
       onSubmit={(e) => {
         e.preventDefault();
         onSubmit();
-        console.log(1)
+        console.log(1);
       }}
     >
       {children}

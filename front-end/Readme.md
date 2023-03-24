@@ -1,9 +1,6 @@
-# Assignment 1 
+# MERN Assignment 
 
-### Tech Stack -> MERN 
-
-
-# Components
+## Components
 
 ## Button
 
@@ -47,3 +44,5 @@
 | children*  | TextField components | React.ReactNode |
 | onSubmit*  | onSubmit function    | function        |
 | className* | CSS classes          | string          |
+
+
