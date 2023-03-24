@@ -55,11 +55,7 @@ const Button = ({
             `}
     >
       {!loading && leftIcon && <span> {leftIcon} </span>}
-      {!loading && (
-        <span className="font-semibold text-base">
-          {children}
-        </span>
-      )}
+      {!loading && <span className="font-semibold text-base">{children}</span>}
       {!loading && rightIcon && <span> {rightIcon} </span>}
       {loading && (
         <AiOutlineLoading3Quarters
