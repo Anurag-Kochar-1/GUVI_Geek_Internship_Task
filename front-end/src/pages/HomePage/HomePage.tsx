@@ -5,6 +5,7 @@ const HomePage = () => {
   return (
     <div>
       <Link to={`/signup`}> Create Account </Link>
+      <Link to={`/login`}> Login </Link>
     </div>
   )
 }

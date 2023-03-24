@@ -1,13 +1,16 @@
-import "./index.css"
+import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import AppRoutes from "./setup/routes-mangner/index";
-import  { Toaster } from "react-hot-toast";
+import { Toaster } from "react-hot-toast";
+import BaseLayout from "./layouts/BaseLayout/BaseLayout";
 
 function App() {
   return (
     <BrowserRouter>
-      <Toaster />
-      <AppRoutes />
+      <BaseLayout>
+        <Toaster />
+        <AppRoutes />
+      </BaseLayout>
     </BrowserRouter>
   );
 }
