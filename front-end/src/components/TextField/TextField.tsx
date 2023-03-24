@@ -50,7 +50,7 @@ const TextField = ({
         value={value}
         onChange={onChange}
         className={`${getInputStyles()}`}
-        // {...registerRef(`${name}`, { required: true })}
+        {...registerRef(`${name}`, { required: true })}
       />
 
       {error && <p className="text-brandError"> {error} </p>}

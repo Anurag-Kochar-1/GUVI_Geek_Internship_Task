@@ -3,12 +3,12 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 interface IButtonProps {
   children: React.ReactNode;
-  variant: string;
+  variant?: string;
   disabled?: boolean;
   loading?: boolean;
   hidden?: boolean;
   onClick?: any;
-  size: string;
+  size?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
 }
@@ -16,6 +16,7 @@ interface IButtonProps {
 const Button = ({
   children,
   variant,
+  size,
   disabled,
   loading,
   hidden,
@@ -29,8 +30,14 @@ const Button = ({
     }
   };
 
-  const getButtonStyles = () => {
-    return ``;
+  const getButtonSizes = () => {
+    switch (size) {
+      case "FULL":
+        return `w-full h-10`;
+
+      default:
+        return `w-36 h-10`;
+    }
   };
 
   return (
@@ -41,7 +48,7 @@ const Button = ({
       type="button"
       onClick={!loading && !disabled ? onClick : null}
       className={`
-            w-36 h-10 p-4 bg-brand text-white flex justify-center items-center rounded-md space-x-1 
+            ${getButtonSizes()} p-4 bg-gradient-to-r from-blue-600 via-purple-500 to-blue-600 text-white flex justify-center items-center rounded-lg space-x-1 
             ${isButtonDisabled()}
             `}
     >

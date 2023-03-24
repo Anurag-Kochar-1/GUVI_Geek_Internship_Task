@@ -1,9 +1,24 @@
-import React from 'react'
+import React from "react";
 
-const AppForm = () => {
-  return (
-    <div>AppForm</div>
-  )
+interface IAppFormProps {
+  children: React.ReactNode;
+  onSubmit: any;
+  className: string
 }
 
-export default AppForm
+const AppForm = ({ children, onSubmit, className }: IAppFormProps) => {
+  return (
+    <form
+      className={className}
+      onSubmit={(e) => {
+        e.preventDefault();
+        onSubmit();
+        console.log(1)
+      }}
+    >
+      {children}
+    </form>
+  );
+};
+
+export default AppForm;
