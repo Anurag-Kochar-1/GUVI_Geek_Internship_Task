@@ -26,9 +26,7 @@ const TextField = ({
 }: ITextFieldProps) => {
   const getInputStyles = () => {
     return `
-        w-full h-12 ${
-          error ? "bg-brand" : "bg-white"
-        } border-2 border-v rounded-md placeholder:text-black text-black p-2 outline-brand font-medium
+        w-full h-12 bg-white border-2 border-v rounded-md placeholder:text-black text-black p-2 outline-brand font-medium
         `;
   };
 
@@ -53,7 +51,7 @@ const TextField = ({
         {...registerRef(`${name}`, { required: true })}
       />
 
-      {error && <p className="text-brandError"> {error} </p>}
+      {error && <p className="text-red-600"> {error} </p>}
     </div>
   );
 };

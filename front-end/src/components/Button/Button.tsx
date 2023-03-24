@@ -11,6 +11,7 @@ interface IButtonProps {
   size?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  type?: any;
 }
 
 const Button = ({
@@ -23,6 +24,7 @@ const Button = ({
   onClick,
   leftIcon,
   rightIcon,
+  type = "button",
 }: IButtonProps) => {
   const isButtonDisabled = () => {
     if (disabled) {
@@ -45,7 +47,7 @@ const Button = ({
       hidden={hidden}
       disabled={disabled}
       title="button"
-      type="button"
+      type={type}
       onClick={!loading && !disabled ? onClick : null}
       className={`
             ${getButtonSizes()} p-4 bg-gradient-to-r from-blue-500 to-violet-500 text-white flex justify-center items-center rounded-lg space-x-1 
@@ -54,9 +56,8 @@ const Button = ({
     >
       {!loading && leftIcon && <span> {leftIcon} </span>}
       {!loading && (
-        <span className="font-libreFranklin font-normal text-base">
-          {" "}
-          {children}{" "}
+        <span className="font-semibold text-base">
+          {children}
         </span>
       )}
       {!loading && rightIcon && <span> {rightIcon} </span>}

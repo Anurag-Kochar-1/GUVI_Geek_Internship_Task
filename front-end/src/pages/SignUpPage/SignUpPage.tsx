@@ -6,9 +6,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 const SignUpPage = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const schema = yup.object().shape({
     name: yup.string().min(4).max(15).required("Full Name is required please"),
     email: yup.string().email().required("Enter a valid Email"),
@@ -32,20 +33,29 @@ const SignUpPage = () => {
     resolver: yupResolver(schema),
   });
 
-
   const onSubmit = async (data: FormData) => {
-    const user = await axios.post(`https://anurag-guvi-api.onrender.com/api/register`, {
-     username: data.name,
-     email: data.email,
-     password: data.password
-    });
+    const res = await axios.post(
+      `https://anurag-guvi-api.onrender.com/api/register`,
+      {
+        username: data.name,
+        email: data.email,
+        password: data.password,
+      }
+    );
 
-    console.log(user)
-    // if()
+    console.log(res);
+    if (res.status === 201) {
+      toast("Registered Successfully", {
+        duration: 4000,
+        position: "top-center",
+        icon: "✅",
+      });
+    }
   };
 
   return (
     <main className="w-full h-screen bg-light flex flex-col lg:flex-row justify-center items-center">
+      <Toaster />
       <section className="hidden lg:inline-block w-[50%] xl:w-[60%] 2xl:w-[65%] h-screen bg-purple-400"></section>
 
       <section className="w-[90%] lg:w-[50%] xl:w-[40%] 2xl:w-[35%] bg-light flex flex-col justify-center items-center lg:px-10">
@@ -99,8 +109,8 @@ const SignUpPage = () => {
             error={errors?.confirmPassword?.message}
             required
           />
-          <Button size="FULL">
-            <input type="submit" value={"Sign up"} />
+          <Button size="FULL" type={"submit"}>
+            Create account
           </Button>
         </AppForm>
       </section>
