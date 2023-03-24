@@ -1,5 +1,4 @@
-# MERN Assignment 
-
+# MERN Assignment  - Frontend
 ## Components
 
 ## Button
