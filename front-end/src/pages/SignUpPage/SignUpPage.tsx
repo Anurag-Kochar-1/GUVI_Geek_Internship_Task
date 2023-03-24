@@ -52,6 +52,12 @@ const SignUpPage = () => {
       });
 
       navigate("/login");
+    } else {
+      toast("Server Error", {
+        duration: 4000,
+        position: "top-center",
+        icon: "❌",
+      });
     }
   };
 

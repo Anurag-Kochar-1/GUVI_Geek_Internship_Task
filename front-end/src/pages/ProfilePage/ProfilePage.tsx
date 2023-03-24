@@ -1,19 +1,23 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import AppForm from "../../components/AppForm/AppForm";
 import Button from "../../components/Button/Button";
 import TextField from "../../components/TextField/TextField";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { AppContext } from "../../context/AppContext";
 
 const ProfilePage = () => {
   const [mobileNumber, setMobileNumber] = useState<number>(0);
   const [age, setAge] = useState<number>(0);
   const [selectedGender, setSelectedGender] = useState("");
   const [date, setDate] = useState<string>("");
+  const navigate = useNavigate();
+  const { userDetails, setUserDetails } = useContext(AppContext);
 
   const updateUserProfile = async () => {
     const res = await axios.put(
-      `https://anurag-guvi-api.onrender.com/api/updateUser/641d14ed1255fea71a807e53`,
+      `https://anurag-guvi-api.onrender.com/api/updateUser/${userDetails._id}`,
       {
         age,
         mobile: mobileNumber,
@@ -33,8 +37,12 @@ const ProfilePage = () => {
     console.log(res);
   };
 
+  useEffect(() => {
+    if (!userDetails?._id) return navigate("/login");
+  }, []);
+
   return (
-    <main className="w-full h-full flex flex-col lg:flex-row justify-center items-center overflow-x-hidden overflow-y-auto">
+    <main className="w-full h-full flex flex-col lg:flex-row justify-center items-center overflow-x-hidden overflow-y-auto mt-[5rem]">
       <AppForm
         onSubmit={updateUserProfile}
         className={

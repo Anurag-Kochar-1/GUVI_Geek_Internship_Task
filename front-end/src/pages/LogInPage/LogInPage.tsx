@@ -9,6 +9,7 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
+import { Toaster } from "react-hot-toast";
 
 const LogInPage = () => {
   const navigate = useNavigate();
@@ -60,13 +61,21 @@ const LogInPage = () => {
         token: res?.data.token,
       });
       navigate("/");
+    } else {
+      toast("Password doesn't match", {
+        duration: 4000,
+        position: "top-center",
+        icon: "❌",
+      });
+
+  
     }
   };
 
   return (
     <main className="w-full h-screen bg-light flex flex-col lg:flex-row justify-center items-center">
       <section className="hidden lg:inline-block w-[50%] xl:w-[60%] 2xl:w-[65%] h-screen bg-gradient-to-r from-indigo-500 to-fuchsia-300"></section>
-
+      <Toaster />
       <section className="w-[90%] lg:w-[50%] xl:w-[40%] 2xl:w-[35%] bg-light flex flex-col justify-center items-center lg:px-10">
         <div className="w-full flex flex-col items-start justify-start space-y-2 my-4">
           <h2
