@@ -5,8 +5,10 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const SignUpPage = () => {
+  const navigate = useNavigate()
   const schema = yup.object().shape({
     name: yup.string().min(4).max(15).required("Full Name is required please"),
     email: yup.string().email().required("Enter a valid Email"),
@@ -30,14 +32,16 @@ const SignUpPage = () => {
     resolver: yupResolver(schema),
   });
 
-  const registerUser = async () => {};
 
   const onSubmit = async (data: FormData) => {
     const user = await axios.post(`https://anurag-guvi-api.onrender.com/api/register`, {
-      data,
+     username: data.name,
+     email: data.email,
+     password: data.password
     });
 
     console.log(user)
+    // if()
   };
 
   return (

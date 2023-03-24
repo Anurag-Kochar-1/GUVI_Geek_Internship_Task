@@ -48,7 +48,7 @@ const Button = ({
       type="button"
       onClick={!loading && !disabled ? onClick : null}
       className={`
-            ${getButtonSizes()} p-4 bg-gradient-to-r from-blue-600 via-purple-500 to-blue-600 text-white flex justify-center items-center rounded-lg space-x-1 
+            ${getButtonSizes()} p-4 bg-gradient-to-r from-blue-500 to-violet-500 text-white flex justify-center items-center rounded-lg space-x-1 
             ${isButtonDisabled()}
             `}
     >
