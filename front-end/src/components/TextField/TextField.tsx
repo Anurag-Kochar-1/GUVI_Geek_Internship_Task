@@ -11,6 +11,7 @@ interface ITextFieldProps {
   onChange?: any;
   error?: string | undefined;
   registerRef?: any;
+  isSchema?: boolean;
 }
 
 const TextField = ({
@@ -23,10 +24,11 @@ const TextField = ({
   error,
   registerRef,
   name,
+  isSchema = true,
 }: ITextFieldProps) => {
   const getInputStyles = () => {
     return `
-        w-full h-12 bg-white border-2 border-v rounded-md placeholder:text-black text-black p-2 outline-brand font-medium
+        w-full h-12 bg-white border-2 rounded-md placeholder:text-black text-black p-2 outline-brand font-medium
         `;
   };
 
@@ -39,17 +41,30 @@ const TextField = ({
         {label}
         {required && <span className="text-brand"> * </span>}
       </label>
-      <input
-        required={required}
-        type={type}
-        title={"textFeild"}
-        name={name}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        className={`${getInputStyles()}`}
-        {...registerRef(`${name}`, { required: true })}
-      />
+      {isSchema ? (
+        <input
+          required={required}
+          type={type}
+          title={"textFeild"}
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          className={`${getInputStyles()}`}
+          {...registerRef(`${name}`, { required: true })}
+        />
+      ) : (
+        <input
+          required={required}
+          type={type}
+          title={"textFeild"}
+          name={name}
+          placeholder={placeholder}
+          value={value}
+          onChange={onChange}
+          className={`${getInputStyles()}`}
+        />
+      )}
 
       {error && <p className="text-red-600"> {error} </p>}
     </div>

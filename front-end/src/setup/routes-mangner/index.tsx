@@ -4,14 +4,16 @@ import { Routes, Route } from "react-router-dom";
 const HomePage = lazy(() => import("../../pages/HomePage/HomePage"));
 const SignUpPage = lazy(() => import("../../pages/SignUpPage/SignUpPage"));
 const LogInPage = lazy(() => import("../../pages/LogInPage/LogInPage"));
+const ProfilePage = lazy(() => import("../../pages/ProfilePage/ProfilePage"));
 
 const index = () => {
   return (
     <Suspense fallback={<div>LOADING...</div>}>
       <Routes>
-        <Route path="/"  element={<HomePage />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<LogInPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </Suspense>
   );

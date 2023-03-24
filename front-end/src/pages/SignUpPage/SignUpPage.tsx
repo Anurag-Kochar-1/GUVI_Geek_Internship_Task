@@ -51,7 +51,7 @@ const SignUpPage = () => {
         icon: "✅",
       });
 
-      navigate('/login')
+      navigate("/login");
     }
   };
 
@@ -115,7 +115,10 @@ const SignUpPage = () => {
             Create account
           </Button>
 
-          <Link to={'/login'} className="font-medium text-black text-sm"> Already user? Log in here </Link>
+          <Link to={"/login"} className="font-medium text-black text-sm">
+            {" "}
+            Already user? Log in here{" "}
+          </Link>
         </AppForm>
       </section>
     </main>
