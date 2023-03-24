@@ -3,20 +3,34 @@ import AppForm from "../../components/AppForm/AppForm";
 import Button from "../../components/Button/Button";
 import TextField from "../../components/TextField/TextField";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 const ProfilePage = () => {
-  const [nameValue, setNameValue] = useState<string>("");
   const [mobileNumber, setMobileNumber] = useState<number>(0);
   const [age, setAge] = useState<number>(0);
   const [selectedGender, setSelectedGender] = useState("");
   const [date, setDate] = useState<string>("");
 
   const updateUserProfile = async () => {
-    const res = await axios.put(`https://anurag-guvi-api.onrender.com/api/updateUser/641d14ed1255fea71a807e53`, {
-      age
-    })
+    const res = await axios.put(
+      `https://anurag-guvi-api.onrender.com/api/updateUser/641d14ed1255fea71a807e53`,
+      {
+        age,
+        mobile: mobileNumber,
+        dob: date,
+        gender: selectedGender,
+      }
+    );
 
-    console.log(res)
+    if (res.status === 201) {
+      toast("Updated Successfully", {
+        duration: 4000,
+        position: "top-center",
+        icon: "✅",
+      });
+    }
+
+    console.log(res);
   };
 
   return (
@@ -31,15 +45,6 @@ const ProfilePage = () => {
           {" "}
           Profile{" "}
         </h1>
-        <TextField
-          type="text"
-          label="Name"
-          placeholder=""
-          name="name"
-          isSchema={false}
-          value={nameValue}
-          onChange={(e: any) => setNameValue(e.target.value)}
-        />
         <TextField
           type="number"
           label="Mobile Number"
