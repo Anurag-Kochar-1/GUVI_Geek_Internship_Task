@@ -7,9 +7,12 @@ import * as yup from "yup";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useContext } from "react";
+import { AppContext } from "../../context/AppContext";
 
 const LogInPage = () => {
   const navigate = useNavigate();
+  const { userDetails, setUserDetails } = useContext(AppContext);
   const schema = yup.object().shape({
     email: yup.string().email().required("Enter a valid Email"),
     password: yup
@@ -46,7 +49,16 @@ const LogInPage = () => {
       });
 
       localStorage.setItem("token", res?.data?.token);
-
+      setUserDetails({
+        username: res?.data?.username,
+        email: res?.data?.email,
+        dob: res?.data?.dob,
+        age: res?.data?.age,
+        gender: res?.data?.gender,
+        mobile: res?.data?.mobile,
+        _id: res?.data?._id,
+        token: res?.data.token,
+      });
       navigate("/");
     }
   };
@@ -57,7 +69,12 @@ const LogInPage = () => {
 
       <section className="w-[90%] lg:w-[50%] xl:w-[40%] 2xl:w-[35%] bg-light flex flex-col justify-center items-center lg:px-10">
         <div className="w-full flex flex-col items-start justify-start space-y-2 my-4">
-          <h2 className="text-4xl font-semibold">Hey there 👋</h2>
+          <h2
+            className="text-4xl font-semibold"
+            onClick={() => console.log(userDetails)}
+          >
+            Hey there 👋
+          </h2>
           <p className="text-base font-light text-gray-600">
             Enter your account details to get started!
           </p>
