@@ -16,6 +16,7 @@ router.route("/login").post(verifyUser, loginController);
 router.route("/user/:username").get(getUser);
 router.route("/allUsers").get(getUsers)
 
-router.route("/updateuser/:userID").put(Auth, updateUser);
+// router.route("/updateuser/:userID").put(Auth, updateUser);
+router.route("/updateuser/:userID").put(updateUser);
 
 module.exports = router;
