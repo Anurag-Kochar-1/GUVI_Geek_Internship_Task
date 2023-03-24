@@ -73,7 +73,7 @@ const LogInPage = () => {
   };
 
   return (
-    <main className="w-full h-screen bg-light flex flex-col lg:flex-row justify-center items-center">
+    <main className="w-full bg-light flex flex-col lg:flex-row justify-center items-center overflow-x-hidden overflow-y-auto">
       <section className="hidden lg:inline-block w-[50%] xl:w-[60%] 2xl:w-[65%] h-screen bg-gradient-to-r from-indigo-500 to-fuchsia-300"></section>
       <Toaster />
       <section className="w-[90%] lg:w-[50%] xl:w-[40%] 2xl:w-[35%] bg-light flex flex-col justify-center items-center lg:px-10">

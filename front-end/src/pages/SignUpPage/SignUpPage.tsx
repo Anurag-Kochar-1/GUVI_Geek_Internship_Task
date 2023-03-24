@@ -62,7 +62,7 @@ const SignUpPage = () => {
   };
 
   return (
-    <main className="w-full h-screen bg-light flex flex-col lg:flex-row justify-center items-center">
+    <main className="w-full bg-light flex flex-col lg:flex-row justify-center items-center overflow-x-hidden overflow-y-auto">
       <Toaster />
       <section className="hidden lg:inline-block w-[50%] xl:w-[60%] 2xl:w-[65%] h-screen from-blue-600 to-purple-500 bg-gradient-to-r"></section>
 
