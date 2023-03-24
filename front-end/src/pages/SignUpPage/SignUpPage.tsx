@@ -117,7 +117,7 @@ const SignUpPage = () => {
 
           <Link to={"/login"} className="font-medium text-black text-sm">
             {" "}
-            Already user? Log in here{" "}
+            Already user? Log in here
           </Link>
         </AppForm>
       </section>
