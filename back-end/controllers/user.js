@@ -16,7 +16,7 @@ exports.getUser = async (req, res) => {
 
 exports.updateUser = async (req, res) => {
   try {
-    const { userID } = req.params;
+    const { userID } = req.user;
 
     if (userID) {
       const body = req.body;
@@ -42,3 +42,5 @@ exports.getUsers = async (req, res) => {
     return res.status(401).send({ error });
   }
 };
+
+
