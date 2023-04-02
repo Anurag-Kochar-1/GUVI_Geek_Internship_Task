@@ -2,16 +2,16 @@ const User = require("../models/user").User;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-exports.loginController = async (req, res) => {
+exports.  loginController = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email }).exec();
     if (!user) {
-      return res.status(404).send({ error: "User not found" });
+      return res.status(404).send({ error: "User not found !!!" });
     }
 
     bcrypt
-      .compare(password, user.password)
+      .compare(password, user?.password)
       .then((passwordCheck) => {
         if (!passwordCheck) {
           return res.status(404).send({ error: "Don't have password" });
@@ -40,9 +40,9 @@ exports.loginController = async (req, res) => {
         });
       })
       .catch((error) => {
-        return res.status(404).send({ error: "Password does not match" });
+        return res.status(500).send({ error: "Password does not match" });
       });
   } catch (error) {
-    return res.status(500).send({ hello1: error });
+    return res.status(500).send({ error: `error from loginController catch block` });
   }
 };

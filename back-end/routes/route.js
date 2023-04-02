@@ -10,13 +10,12 @@ const getUsers = require("../controllers/user").getUsers;
 const Auth = require("../middlewares/auth").Auth;
 
 router.route("/register").post(registerController);
-router.route("authenticate").post((req, res) => res.end());
+router.route("authenticate").post(verifyUser, (req, res) => res.end());
 router.route("/login").post(verifyUser, loginController);
 
 router.route("/user/:username").get(getUser);
-router.route("/allUsers").get(getUsers);
+router.route("/allusers").get(getUsers);
 
-// router.route("/updateuser/:userID").put(Auth, updateUser);
-router.route("/updateuser/:userID").put(updateUser);
+router.route("/updateuser").put(Auth, updateUser);
 
 module.exports = router;

@@ -11,3 +11,4 @@ exports.Auth = async (req, res, next) => {
     res.status(401).json({ error: "Authentication Failed from auth.js" });
   }
 };
+  

@@ -7,6 +7,7 @@ async function connect() {
 
   mongoose.set("strictQuery", true);
   const db = await mongoose.connect(process.env.MONGODB_URI);
+  // const db = await mongoose.connect(getUri);
   console.log("DB CONNECTED");
   return db;
 }

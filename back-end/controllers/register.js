@@ -24,7 +24,7 @@ exports.registerController = async (req, res) => {
             res.status(201).send({ message: "User Registered Successfully" });
           })
           .catch((error) => {
-            res.status(500).send({ "hello 1": "hello" });
+            res.status(500).send({ error });
           });
       })
       .catch((err) => {

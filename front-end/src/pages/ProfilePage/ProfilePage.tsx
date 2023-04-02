@@ -4,37 +4,32 @@ import Button from "../../components/Button/Button";
 import TextField from "../../components/TextField/TextField";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { updateUser } from "../../utils/helperFunctions";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
   const [mobileNumber, setMobileNumber] = useState<number>(0);
   const [age, setAge] = useState<number>(0);
   const [selectedGender, setSelectedGender] = useState("");
   const [date, setDate] = useState<string>("");
-  const navigate = useNavigate();
   const { userDetails, setUserDetails } = useContext(AppContext);
 
   const updateUserProfile = async () => {
-    const res = await axios.put(
-      `https://anurag-guvi-api.onrender.com/api/updateUser/${userDetails._id}`,
-      {
-        age,
-        mobile: mobileNumber,
-        dob: date,
-        gender: selectedGender,
-      }
-    );
+    const response = {
+      age: userDetails.age,
+      mobile: userDetails.mobile,
+      dob: userDetails.dob,
+      gender: userDetails.gender,
+    };
 
-    if (res.status === 201) {
-      toast("Updated Successfully", {
-        duration: 4000,
-        position: "top-center",
-        icon: "✅",
-      });
-    }
-
-    console.log(res);
+    let updateUserPromise = updateUser(response);
+    toast.promise(updateUserPromise, {
+      loading: "Updating...",
+      success: <b>Updated Successfully</b>,
+      error: <b>Updating Failed!!!</b>,
+    });
   };
 
   const getUser = async () => {
@@ -43,17 +38,32 @@ const ProfilePage = () => {
     );
     console.log(user);
 
-    if (user.status === 200) {
-      setMobileNumber(user.data.mobile);
-      setAge(user.data.age);
-      setSelectedGender(user.data.gender);
+    if (user?.status === 200) {
+      console.log(`changing states`)
+      setMobileNumber(user?.data?.mobile);
+      setAge(user?.data?.age);
+      setSelectedGender(user?.data?.gender);
+
+      setUserDetails((prev) => {
+        return {
+          ...prev,
+          age: user?.data?.age,
+          mobile: user?.data?.mobile,
+          dob: user?.data?.dob,
+          gender: user?.data?.gender,
+        };
+      });
     }
+
+    
   };
 
   useEffect(() => {
-    if (!userDetails?._id) return navigate("/login");
-
-    getUser();
+    console.log(`useEffect is running from profile page`)
+    if (!userDetails.username) return navigate("/login");
+    else if (userDetails?.username) {
+      getUser();
+    }
   }, []);
 
   return (

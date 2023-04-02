@@ -10,6 +10,7 @@ import toast from "react-hot-toast";
 import { useContext } from "react";
 import { AppContext } from "../../context/AppContext";
 import { Toaster } from "react-hot-toast";
+import { login } from "../../utils/helperFunctions";
 
 const LogInPage = () => {
   const navigate = useNavigate();
@@ -33,43 +34,38 @@ const LogInPage = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-    const res = await axios.post(
-      `https://anurag-guvi-api.onrender.com/api/login`,
-      {
-        email: data.email,
-        password: data.password,
-      }
-    );
+    const creds = {
+      email: data.email,
+      password: data.password,
+    };
 
-    console.log(res);
-    if (res.status === 200) {
-      toast("Logged In Successfully", {
-        duration: 4000,
-        position: "top-center",
-        icon: "✅",
-      });
+    let loginPromise = login(creds);
+    toast.promise(loginPromise, {
+      loading: "Working...",
+      success: <b>Login Successfully</b>,
+      error: <b>Password doesn't match</b>,
+    });
 
-      localStorage.setItem("token", res?.data?.token);
-      setUserDetails({
-        username: res?.data?.username,
-        email: res?.data?.email,
-        dob: res?.data?.dob,
-        age: res?.data?.age,
-        gender: res?.data?.gender,
-        mobile: res?.data?.mobile,
-        _id: res?.data?._id,
-        token: res?.data.token,
-      });
-      navigate("/");
-    } else {
-      toast("Password doesn't match", {
-        duration: 4000,
-        position: "top-center",
-        icon: "❌",
-      });
+    loginPromise
+      .then((res) => {
+        localStorage.setItem("token", res?.data?.token)
 
-  
-    }
+        setUserDetails({
+          username: res?.data?.username,
+          email: res?.data?.email,
+          dob: res?.data?.dob,
+          age: res?.data?.age,
+          gender: res?.data?.gender,
+          mobile: res?.data?.mobile,
+          _id: res?.data?._id,
+          token: res?.data.token,
+        });
+
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
