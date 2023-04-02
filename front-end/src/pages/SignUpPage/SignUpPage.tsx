@@ -7,6 +7,7 @@ import * as yup from "yup";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
+import { registerUser } from "../../utils/helperFunctions";
 
 const SignUpPage = () => {
   const navigate = useNavigate();
@@ -34,31 +35,23 @@ const SignUpPage = () => {
   });
 
   const onSubmit = async (data: FormData) => {
-    const res = await axios.post(
-      `https://anurag-guvi-api.onrender.com/api/register`,
-      {
-        username: data.name,
-        email: data.email,
-        password: data.password,
-      }
-    );
-
-    console.log(res);
-    if (res.status === 201) {
-      toast("Registered Successfully", {
-        duration: 4000,
-        position: "top-center",
-        icon: "✅",
-      });
-
-      navigate("/login");
-    } else {
-      toast("Server Error", {
-        duration: 4000,
-        position: "top-center",
-        icon: "❌",
-      });
+    const userData = {
+      username: data.name,
+      email: data.email,
+      password: data.password,
     }
+
+    let registerPromise = registerUser(userData);
+    toast.promise(registerPromise, {
+      loading: 'Creating...',
+      success: <b>Registered Successfully</b>,
+      error: <b>Couldn't Registered</b>,
+    })
+
+    registerPromise.then((res) => {
+      console.log(res)
+        navigate("/login");
+    }).catch((err) => console.log(err))
   };
 
   return (
@@ -88,7 +81,6 @@ const SignUpPage = () => {
             name="name"
             registerRef={register}
             error={errors?.name?.message}
-            required
           />
           <TextField
             type="email"
@@ -97,7 +89,6 @@ const SignUpPage = () => {
             name="email"
             registerRef={register}
             error={errors?.email?.message}
-            required
           />
           <TextField
             type="password"
@@ -106,7 +97,6 @@ const SignUpPage = () => {
             name="password"
             registerRef={register}
             error={errors?.password?.message}
-            required
           />
           <TextField
             type="password"
@@ -115,7 +105,6 @@ const SignUpPage = () => {
             name="confirmPassword"
             registerRef={register}
             error={errors?.confirmPassword?.message}
-            required
           />
           <Button size="FULL" type={"submit"}>
             Create account
