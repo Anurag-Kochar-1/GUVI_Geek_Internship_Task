@@ -17,6 +17,7 @@ exports.getUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     const { userID } = req.user;
+    // const body = req.body;
 
     if (userID) {
       const body = req.body;
@@ -29,6 +30,11 @@ exports.updateUser = async (req, res) => {
     } else {
       return res.status(401).send({ error: "User Not Found...!" });
     }
+
+    // res.json({
+    //   userID,
+    //   body
+    // })
   } catch (error) {
     return res.status(401).send({ error });
   }

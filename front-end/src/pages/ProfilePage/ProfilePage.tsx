@@ -4,7 +4,7 @@ import Button from "../../components/Button/Button";
 import TextField from "../../components/TextField/TextField";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { updateUser } from "../../utils/helperFunctions";
+import { updateUser, getUser } from "../../utils/helperFunctions";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 
@@ -18,10 +18,10 @@ const ProfilePage = () => {
 
   const updateUserProfile = async () => {
     const response = {
-      age: userDetails.age,
-      mobile: userDetails.mobile,
-      dob: userDetails.dob,
-      gender: userDetails.gender,
+      age: userDetails?.age,
+      mobile: userDetails?.mobile,
+      dob: userDetails?.dob,
+      gender: userDetails?.gender,
     };
 
     let updateUserPromise = updateUser(response);
@@ -32,37 +32,27 @@ const ProfilePage = () => {
     });
   };
 
-  const getUser = async () => {
-    const user = await axios.get(
-      `https://anurag-guvi-api.onrender.com/api/user/${userDetails?.username}`
-    );
-    console.log(user);
-
-    if (user?.status === 200) {
-      console.log(`changing states`)
-      setMobileNumber(user?.data?.mobile);
-      setAge(user?.data?.age);
-      setSelectedGender(user?.data?.gender);
-
-      setUserDetails((prev) => {
-        return {
-          ...prev,
-          age: user?.data?.age,
-          mobile: user?.data?.mobile,
-          dob: user?.data?.dob,
-          gender: user?.data?.gender,
-        };
-      });
-    }
-
-    
-  };
 
   useEffect(() => {
     console.log(`useEffect is running from profile page`)
     if (!userDetails.username) return navigate("/login");
     else if (userDetails?.username) {
-      getUser();
+      getUser(userDetails?.username).then((res) => {
+        console.log(res)
+        setMobileNumber(res?.mobile);
+        setAge(res?.age);
+        setSelectedGender(res?.gender);
+
+      setUserDetails((prev) => {
+        return {
+          ...prev,
+          age: res?.age,
+          mobile: res?.mobile,
+          dob: res?.dob,
+          gender: res?.gender,
+        };
+      });
+      }).catch((err) => console.log(err))
     }
   }, []);
 

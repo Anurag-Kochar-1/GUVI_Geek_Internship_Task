@@ -2,7 +2,7 @@ const User = require("../models/user").User;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-exports.  loginController = async (req, res) => {
+exports.loginController = async (req, res) => {
   const { email, password } = req.body;
   try {
     const user = await User.findOne({ email }).exec();
@@ -12,7 +12,7 @@ exports.  loginController = async (req, res) => {
 
     bcrypt
       .compare(password, user?.password)
-      .then((passwordCheck) => {
+      .then(passwordCheck => {
         if (!passwordCheck) {
           return res.status(404).send({ error: "Don't have password" });
         }

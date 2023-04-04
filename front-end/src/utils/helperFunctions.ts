@@ -1,5 +1,9 @@
 import axios from "axios";
 
+const BASE_URL = import.meta.env.VITE_SERVER_DOMAIN;
+axios.defaults.baseURL = BASE_URL
+
+
 export async function authenticate(email: string) {
   try {
     return axios.post(`/api/authenticate`, { email });
@@ -22,7 +26,7 @@ export async function registerUser(credentials: any) {
     console.log(`registerUser running from helperFunctions.ts`)
     const {
       data
-    } = await axios.post(`https://anurag-guvi-api.onrender.com/api/register`, {
+    } = await axios.post(`/api/register`, {
       username: credentials.username,
       email: credentials.email,
       password: credentials.password,
@@ -37,7 +41,7 @@ export async function registerUser(credentials: any) {
 export async function login(credentials: any) {
   try {
     if (credentials) {
-      const { data } = await axios.post(`https://anurag-guvi-api.onrender.com/api/login`, {
+      const { data } = await axios.post(`/api/login`, {
         email: credentials.email,
         password: credentials.password,
       });
@@ -54,13 +58,13 @@ export async function updateUser(response: any) {
     const token = window?.localStorage?.getItem("token");
 
     if (token) {
-      const data = await axios.put(`https://anurag-guvi-api.onrender.com/api/updateuser`, response, {
+      const data = await axios.put(`/api/updateuser`, response, {
         headers: {
             "Authorization": `Bearer ${token}`
         }
       });
 
-      return Promise.resolve(data)
+      return Promise.resolve({data})
     } else {!token} {
         Promise.reject({ error: "No Token Found!!!" });
     }

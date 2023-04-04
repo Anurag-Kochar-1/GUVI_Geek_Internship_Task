@@ -3,8 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppContext } from "../../context/AppContext";
 
 const HomePage = () => {
-  const navigate = useNavigate();
-  const { userDetails, setUserDetails } = useContext(AppContext);
+const navigate = useNavigate();
+const { userDetails, setUserDetails } = useContext(AppContext);
   return (
     <main className="w-full h-screen flex flex-col justify-center items-center mt-[5rem] overflow-x-hidden overflow-y-auto space-y-6">
       <div className="flex items-center justify-center space-x-2">
@@ -21,3 +21,6 @@ const HomePage = () => {
 };
 
 export default HomePage;
+
+
+
